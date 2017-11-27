@@ -79,9 +79,7 @@ export default function TimelineListItem({
         <ItemBubble>
           <BubbleBody>
             {type === "text" && <p>{data}</p>}
-
             {type === "image" && <Image url={data} />}
-            {/* {type === "image" && <img src={data} alt="" />} */}
           </BubbleBody>
         </ItemBubble>
       </AvatarAndContent>
