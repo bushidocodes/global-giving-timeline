@@ -43,12 +43,15 @@ export const loadTimeline = () => (dispatch, getState) => {
   const { selectedOrg } = getState().settings;
   if (selectedOrg) {
     console.log(`Loading the timeline for ${selectedOrg}`);
-    return axios
-      .get(
-        "https://r3t2ak8274.execute-api.us-west-1.amazonaws.com/Prod/getPosts"
-      )
-      .then(({ data }) => dispatch(setTimeline(data)))
-      .catch(err => console.log(err));
+    return (
+      axios
+        // .get(
+        //   "https://r3t2ak8274.execute-api.us-west-1.amazonaws.com/Prod/getPosts"
+        // )
+        .get(`https://api.gg-t17.org/getPostsByOrg/${selectedOrg}`)
+        .then(({ data }) => dispatch(setTimeline(data)))
+        .catch(err => console.log(err))
+    );
   } else {
     console.log("No org is selected");
     return null;

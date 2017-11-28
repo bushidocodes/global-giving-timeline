@@ -10,7 +10,7 @@ const mockData = {
     logoURL: "https://www.globalgiving.org/pfil/organ/372/orglogo.jpg"
   }
 };
-const initialState = mockData;
+const initialState = {};
 
 export default function orgs(state = initialState, action) {
   switch (action.type) {

@@ -13,9 +13,10 @@ import "./App.css";
 
 class App extends Component {
   componentDidMount() {
+    this.props.loadOrgs();
     this.props.loadTimeline();
     window.pollingTimer = window.setInterval(() => {
-      console.log(this.props.selectedOrg);
+      console.log(this.props.selectedOrg || "Nothing yet selected");
       if (this.props.selectedOrg) this.props.loadTimeline();
     }, 5000);
   }
@@ -47,11 +48,10 @@ function mapStateToProps({ timeline, settings: { selectedOrg } }) {
 const mapDispatchToProps = (dispatch, getState) => ({
   loadOrgs() {
     console.log("Loading the orgs");
-    // axios
-    //   .get(
-    //     "https://r3t2ak8274.execute-api.us-west-1.amazonaws.com/Prod/getPosts"
-    //   )
-    //   .then(({ data }) => dispatch(setOrgs(data)));
+    axios
+      .get("https://api.gg-t17.org/getAllOrgs/")
+      // .then(({ data }) => console.log(data));
+      .then(({ data }) => dispatch(setOrgs(data)));
   },
   loadTimeline: () => dispatch(loadTimeline())
 });
