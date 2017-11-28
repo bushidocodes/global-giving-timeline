@@ -16,7 +16,7 @@ const AvatarAndContent = styled.div`
 `;
 
 const ItemBubble = styled.div`
-  background-color: #eee;
+  background-color: #efefef;
   margin: auto;
   border: medium solid #ddd;
   border-radius: 20px;
@@ -80,7 +80,9 @@ export default function TimelineListItem({
         </Avatar>
         <ItemBubble>
           <BubbleBody>
-            {ContentType === "text" && <p>{ContentData}</p>}
+            {ContentType === "text" && (
+              <p>{String(ContentData).replace(/\+/gi, " ")}</p>
+            )}
             {ContentType === "url" && (
               <ReactPlayer url={ContentData} height="32px" controls={true} />
             )}

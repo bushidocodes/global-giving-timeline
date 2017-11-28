@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import _ from "lodash";
 import TimelineListItem from "./TimelineListItem";
 import { setTimeline } from "../actions";
 
@@ -35,7 +36,7 @@ class Timeline extends Component {
 }
 
 function mapStateToProps({ timeline }) {
-  return { timeline };
+  return { timeline: _.reverse(timeline) };
 }
 
 const mapDispatchToProps = dispatch => ({
