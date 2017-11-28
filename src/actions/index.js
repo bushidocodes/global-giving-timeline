@@ -48,7 +48,11 @@ export const loadTimeline = () => (dispatch, getState) => {
         // .get(
         //   "https://r3t2ak8274.execute-api.us-west-1.amazonaws.com/Prod/getPosts"
         // )
-        .get(`https://api.gg-t17.org/getPostsByOrg/${selectedOrg}`)
+        .get(
+          `https://9q0134xluk.execute-api.us-west-1.amazonaws.com/dev/getorgbyposttest?orgId=${
+            selectedOrg
+          }`
+        )
         .then(({ data }) => dispatch(setTimeline(data)))
         .catch(err => console.log(err))
     );

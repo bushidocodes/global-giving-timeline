@@ -20,10 +20,10 @@ class Timeline extends Component {
     let lastUserName = "";
     const { timeline = [] } = this.props;
     return timeline.map(item => {
-      const currentUserName = item.user && item.user.name;
+      const currentUserName = item.UserId;
       const valToReturn = (
         <TimelineListItem
-          key={`${item.timestamp}-${item.user.name}`}
+          key={`${item.Timestamp}-${item.UserId}`}
           showUser={currentUserName !== lastUserName}
           {...item}
         />

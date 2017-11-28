@@ -56,34 +56,34 @@ const AvatarImage = styled.img`
 `;
 
 export default function TimelineListItem({
-  timestamp,
-  content: { type = "", data = "" },
-  org: { name: orgName = "", logoUrl: orgLogoURL = "" },
-  user: { name: userName = "", avatar = "" },
+  Timestamp,
+  ContentData,
+  ContentType,
+  OrgId,
+  UserId,
   showUser
 }) {
-  const date = new Date(timestamp);
+  const date = new Date(Timestamp);
+  const avatar = null;
 
   return (
     <div>
-      {timestamp && <h4>{date.toLocaleString()}</h4>}
+      {Timestamp && <h4>{date.toLocaleString()}</h4>}
       <AvatarAndContent>
         <Avatar>
           {showUser && (
             <div>
               <AvatarImage src={avatar ? avatar : profile} />
-              <h4>{userName}</h4>
+              <h4>{UserId}</h4>
             </div>
           )}
         </Avatar>
         <ItemBubble>
           <BubbleBody>
-            {type === "text" && <p>{data}</p>}
-            {type === "audio" && (
-              <ReactPlayer url={data} height="32px" controls={true} />
+            {ContentType === "text" && <p>{ContentData}</p>}
+            {ContentType === "url" && (
+              <ReactPlayer url={ContentData} height="32px" controls={true} />
             )}
-            {type === "video" && <ReactPlayer url={data} controls={true} />}
-            {type === "image" && <Image url={data} />}
           </BubbleBody>
         </ItemBubble>
       </AvatarAndContent>

@@ -49,8 +49,9 @@ const mapDispatchToProps = (dispatch, getState) => ({
   loadOrgs() {
     console.log("Loading the orgs");
     axios
-      .get("https://api.gg-t17.org/getAllOrgs/")
-      // .then(({ data }) => console.log(data));
+      .get(
+        "https://9q0134xluk.execute-api.us-west-1.amazonaws.com/dev/getorganizations"
+      )
       .then(({ data }) => dispatch(setOrgs(data)));
   },
   loadTimeline: () => dispatch(loadTimeline())

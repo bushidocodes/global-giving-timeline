@@ -34,11 +34,13 @@ class SelectMenu extends Component {
     const { selectedOrgID, selectedOrg, orgs } = this.props;
     const selectedOrgName = selectedOrg ? selectedOrg.name : "";
     const selectedOrgLogoURL = selectedOrg ? selectedOrg.logoURL : "";
-    const options = _.map(orgs, (value, key) => ({
-      value: key,
-      label: value.name,
-      logoURL: value.logoURL
-    }));
+    const options = _.map(orgs, (value, key) => {
+      return {
+        value: value.OrgId,
+        label: value.Name,
+        logoURL: value.LogoURL
+      };
+    });
     return (
       <Select
         name="form-field-name"
