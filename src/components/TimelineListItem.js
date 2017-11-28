@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import profile from "../assets/profile.svg";
+import ReactPlayer from "react-player";
 
 const AvatarAndContent = styled.div`
   display: flex;
@@ -10,15 +11,14 @@ const AvatarAndContent = styled.div`
   width: 800px;
   margin: auto;
   & > * {
-    min-height: 165px;
+    /* min-height: 165px; */
   }
 `;
 
 const ItemBubble = styled.div`
-  background-color: lightgreen;
-  width: 600px;
+  background-color: #eee;
   margin: auto;
-  border: medium dashed red;
+  border: medium solid #ddd;
   border-radius: 20px;
 `;
 
@@ -45,7 +45,7 @@ const Image = styled.div`
   height: 350px;
   background-image: url(${props => props.url});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 `;
 
 const AvatarImage = styled.img`
@@ -79,6 +79,10 @@ export default function TimelineListItem({
         <ItemBubble>
           <BubbleBody>
             {type === "text" && <p>{data}</p>}
+            {type === "audio" && (
+              <ReactPlayer url={data} height="32px" controls={true} />
+            )}
+            {type === "video" && <ReactPlayer url={data} controls={true} />}
             {type === "image" && <Image url={data} />}
           </BubbleBody>
         </ItemBubble>

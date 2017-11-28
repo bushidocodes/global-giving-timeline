@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import TimelineListItem from "./TimelineListItem";
 import axios from "axios";
+import TimelineListItem from "./TimelineListItem";
 import { setTimeline } from "../actions";
 
 class Timeline extends Component {
@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => ({
       .get(
         "https://r3t2ak8274.execute-api.us-west-1.amazonaws.com/Prod/getPosts"
       )
-      .then(timeline => dispatch(setTimeline(timeline)));
+      .then(({ data }) => dispatch(setTimeline(data)));
   }
 });
 
