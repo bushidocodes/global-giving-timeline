@@ -38,7 +38,7 @@ class SelectMenu extends Component {
       return {
         value: value.OrgId,
         label: value.Name,
-        logoURL: value.LogoURL
+        logoURL: value.LogoUrl
       };
     });
     return (
