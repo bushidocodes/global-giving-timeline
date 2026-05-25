@@ -1,65 +1,64 @@
 import React from "react";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { connect } from "react-redux";
-import _ from "lodash";
 import { selectOrg, loadTimeline } from "../actions";
-import "react-select/dist/react-select.css";
 
-function LogoValue({ value }) {
-  var logoStyle = {
-    borderRadius: 3,
-    display: "inline-block",
-    marginRight: 10,
-    position: "relative",
-    top: -2,
-    verticalAlign: "middle",
-    height: "100%"
-  };
+const logoStyle = {
+  borderRadius: 3,
+  display: "inline-block",
+  marginRight: 10,
+  position: "relative",
+  top: -2,
+  verticalAlign: "middle",
+  height: "1em",
+};
+
+function LogoValue(props) {
   return (
-    <div className="Select-value" title={value.title}>
-      <span className="Select-value-label">
-        <img style={logoStyle} src={value.logoURL} alt={value.label} />
-        <span>{value.label}</span>
-      </span>
-    </div>
+    <components.SingleValue {...props}>
+      <img
+        style={logoStyle}
+        src={props.data.logoURL}
+        alt={props.data.label}
+      />
+      <span>{props.children}</span>
+    </components.SingleValue>
   );
 }
 
 function SelectMenu({ selectedOrgID, orgs, selectOrg, loadTimeline }) {
   function handleChange(selectedOption) {
+    if (!selectedOption) return;
     selectOrg(selectedOption.value);
     setTimeout(loadTimeline, 50);
   }
 
-  const options = _.map(orgs, (value) => ({
-    value: value.OrgId,
-    label: value.Name,
-    logoURL: value.LogoUrl
+  const options = Object.values(orgs).map((org) => ({
+    value: org.OrgId,
+    label: org.Name,
+    logoURL: org.LogoUrl,
   }));
+
+  const selectedOption = options.find((o) => o.value === selectedOrgID) ?? null;
 
   return (
     <Select
-      name="form-field-name"
-      value={selectedOrgID}
+      value={selectedOption}
       onChange={handleChange}
       options={options}
-      valueComponent={LogoValue}
+      components={{ SingleValue: LogoValue }}
     />
   );
 }
 
-const mapStateToProps = ({
-  settings: { selectedOrg: selectedOrgID },
-  orgs
-}) => ({
+const mapStateToProps = ({ settings: { selectedOrg: selectedOrgID }, orgs }) => ({
   selectedOrgID,
-  selectedOrg: orgs[selectedOrgID],
-  orgs
+  orgs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   selectOrg: (orgID) => dispatch(selectOrg(orgID)),
-  loadTimeline: () => dispatch(loadTimeline())
+  loadTimeline: () => dispatch(loadTimeline()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectMenu);
