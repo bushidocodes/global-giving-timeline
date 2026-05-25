@@ -1,14 +1,14 @@
-export const SELECT_ORG = "SELECT_ORG";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  selectedOrg: null
-};
+const settingsSlice = createSlice({
+  name: "settings",
+  initialState: { selectedOrg: null },
+  reducers: {
+    selectOrg: (state, action) => {
+      state.selectedOrg = action.payload;
+    },
+  },
+});
 
-export default function settings(state = initialState, action) {
-  switch (action.type) {
-    case SELECT_ORG:
-      return { ...initialState, selectedOrg: action.payload };
-    default:
-      return state;
-  }
-}
+export const { selectOrg } = settingsSlice.actions;
+export default settingsSlice.reducer;

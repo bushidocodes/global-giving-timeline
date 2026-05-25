@@ -1,12 +1,12 @@
-export const SET_ORGS = "SET_ORGS";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const orgsSlice = createSlice({
+  name: "orgs",
+  initialState: {},
+  reducers: {
+    setOrgs: (state, action) => action.payload,
+  },
+});
 
-export default function orgs(state = initialState, action) {
-  switch (action.type) {
-    case SET_ORGS:
-      return action.payload;
-    default:
-      return state;
-  }
-}
+export const { setOrgs } = orgsSlice.actions;
+export default orgsSlice.reducer;

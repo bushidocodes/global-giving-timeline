@@ -1,12 +1,12 @@
-export const SET_TIMELINE = "SET_TIMELINE";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+const timelineSlice = createSlice({
+  name: "timeline",
+  initialState: [],
+  reducers: {
+    setTimeline: (state, action) => action.payload,
+  },
+});
 
-export default function timeline(state = initialState, action) {
-  switch (action.type) {
-    case SET_TIMELINE:
-      return action.payload;
-    default:
-      return state;
-  }
-}
+export const { setTimeline } = timelineSlice.actions;
+export default timelineSlice.reducer;
