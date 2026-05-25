@@ -1,16 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { Org } from "../types";
 
-export const loadOrgs = createAsyncThunk("orgs/load", async () => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_API_BASE_URL}/getorganizations`
-  );
-  return data;
-});
+interface OrgsState {
+  data: Record<string, Org>;
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: OrgsState = { data: {}, loading: false, error: null };
+
+export const loadOrgs = createAsyncThunk<Record<string, Org>>(
+  "orgs/load",
+  async () => {
+    const { data } = await axios.get<Record<string, Org>>(
+      `${import.meta.env.VITE_API_BASE_URL}/getorganizations`
+    );
+    return data;
+  }
+);
 
 const orgsSlice = createSlice({
   name: "orgs",
-  initialState: { data: {}, loading: false, error: null },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

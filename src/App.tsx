@@ -1,12 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
+import type { RootState, AppDispatch } from "./store";
 import Select from "./components/Select";
 import TimelineList from "./components/TimelineList";
 import { loadOrgs, loadTimeline } from "./actions";
 import logo from "./gg_horizontal_color_600.png";
 import "./App.css";
 
-function App({ selectedOrg, orgsLoading, orgsError, loadOrgs, loadTimeline }) {
+interface AppProps {
+  selectedOrg: string | null;
+  orgsLoading: boolean;
+  orgsError: string | null;
+  loadOrgs: () => void;
+  loadTimeline: () => void;
+}
+
+function App({ selectedOrg, orgsLoading, orgsError, loadOrgs, loadTimeline }: AppProps) {
   const selectedOrgRef = useRef(selectedOrg);
   selectedOrgRef.current = selectedOrg;
 
@@ -41,7 +50,7 @@ function App({ selectedOrg, orgsLoading, orgsError, loadOrgs, loadTimeline }) {
   );
 }
 
-function mapStateToProps({ settings: { selectedOrg }, orgs }) {
+function mapStateToProps({ settings: { selectedOrg }, orgs }: RootState) {
   return {
     selectedOrg,
     orgsLoading: orgs.loading,
@@ -49,9 +58,11 @@ function mapStateToProps({ settings: { selectedOrg }, orgs }) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  loadOrgs: () => dispatch(loadOrgs()),
-  loadTimeline: () => dispatch(loadTimeline()),
-});
+function mapDispatchToProps(dispatch: AppDispatch) {
+  return {
+    loadOrgs: () => dispatch(loadOrgs()),
+    loadTimeline: () => dispatch(loadTimeline()),
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
