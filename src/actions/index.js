@@ -42,22 +42,12 @@ export function selectOrgAndPoll(orgID) {
 export const loadTimeline = () => (dispatch, getState) => {
   const { selectedOrg } = getState().settings;
   if (selectedOrg) {
-    console.log(`Loading the timeline for ${selectedOrg}`);
-    return (
-      axios
-        // .get(
-        //   "https://r3t2ak8274.execute-api.us-west-1.amazonaws.com/Prod/getPosts"
-        // )
-        .get(
-          `https://9q0134xluk.execute-api.us-west-1.amazonaws.com/dev/getorgbyposttest?orgId=${
-            selectedOrg
-          }`
-        )
-        .then(({ data }) => dispatch(setTimeline(data)))
-        .catch(err => console.log(err))
-    );
+    const base = process.env.REACT_APP_API_BASE_URL;
+    return axios
+      .get(`${base}/getorgbyposttest?orgId=${selectedOrg}`)
+      .then(({ data }) => dispatch(setTimeline(data)))
+      .catch(err => console.log(err));
   } else {
-    console.log("No org is selected");
     return null;
   }
 };
