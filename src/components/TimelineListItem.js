@@ -10,9 +10,6 @@ const AvatarAndContent = styled.div`
 
   width: 800px;
   margin: auto;
-  & > * {
-    /* min-height: 165px; */
-  }
 `;
 
 const ItemBubble = styled.div`
@@ -40,14 +37,6 @@ const Avatar = styled.div`
   width: 120px;
 `;
 
-const Image = styled.div`
-  width: 100%;
-  height: 350px;
-  background-image: url(${(props) => props.url});
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
 const AvatarImage = styled.img`
   width: 100px;
   height: 100px;
@@ -59,12 +48,10 @@ export default function TimelineListItem({
   Timestamp,
   ContentData,
   ContentType,
-  OrgId,
   UserId,
   showUser
 }) {
   const date = new Date(Timestamp);
-  const avatar = null;
 
   return (
     <div>
@@ -73,7 +60,7 @@ export default function TimelineListItem({
         <Avatar>
           {showUser && (
             <div>
-              <AvatarImage src={avatar ? avatar : profile} />
+              <AvatarImage src={profile} alt={UserId} />
               <h4>{UserId}</h4>
             </div>
           )}

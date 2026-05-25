@@ -24,21 +24,6 @@ export function selectOrg(orgID) {
   };
 }
 
-export function selectOrgAndPoll(orgID) {
-  return function (dispatch, getState, api) {
-    const { selectedOrg } = getState().settings;
-    if (window.pollingTimer) {
-      window.clearInterval(window.pollingTimer);
-      window.pollingTimer = "";
-    }
-    this.props.loadTimeline();
-    window.pollingTimer = window.setInterval(
-      () => this.props.loadTimeline(),
-      5000
-    );
-  };
-}
-
 export const loadTimeline = () => (dispatch, getState) => {
   const { selectedOrg } = getState().settings;
   if (selectedOrg) {
@@ -46,7 +31,7 @@ export const loadTimeline = () => (dispatch, getState) => {
     return axios
       .get(`${base}/getorgbyposttest?orgId=${selectedOrg}`)
       .then(({ data }) => dispatch(setTimeline(data)))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   } else {
     return null;
   }
