@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import _ from "lodash";
 import TimelineListItem from "./TimelineListItem";
 
 function Timeline({ timeline = [] }) {
@@ -20,7 +19,7 @@ function Timeline({ timeline = [] }) {
 }
 
 function mapStateToProps({ timeline }) {
-  return { timeline: _.reverse(timeline) };
+  return { timeline: [...timeline].reverse() };
 }
 
 export default connect(mapStateToProps)(Timeline);
