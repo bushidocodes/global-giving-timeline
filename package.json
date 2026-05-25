@@ -23,9 +23,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "deploy": "bash scripts/deploy.sh",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\""
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-react": "^7.37.5",
+    "prettier": "^2.8.8",
     "redux-logger": "^3.0.6"
   }
 }
