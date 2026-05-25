@@ -43,7 +43,7 @@ const Avatar = styled.div`
 const Image = styled.div`
   width: 100%;
   height: 350px;
-  background-image: url(${props => props.url});
+  background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   background-size: cover;
 `;

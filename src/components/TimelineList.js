@@ -20,7 +20,7 @@ class Timeline extends Component {
   render() {
     let lastUserName = "";
     const { timeline = [] } = this.props;
-    return timeline.map(item => {
+    return timeline.map((item) => {
       const currentUserName = item.UserId;
       const valToReturn = (
         <TimelineListItem
@@ -39,7 +39,7 @@ function mapStateToProps({ timeline }) {
   return { timeline: _.reverse(timeline) };
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   loadTimeline() {
     console.log("Loading the timeline");
     axios

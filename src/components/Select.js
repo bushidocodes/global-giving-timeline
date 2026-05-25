@@ -26,7 +26,7 @@ function LogoValue({ image, value, children }) {
 }
 
 class SelectMenu extends Component {
-  handleChange = selectedOption => {
+  handleChange = (selectedOption) => {
     this.props.selectOrg(selectedOption.value);
     setTimeout(this.props.loadTimeline, 50);
   };
@@ -62,8 +62,8 @@ const mapStateToProps = ({
   orgs
 });
 
-const mapDispatchToProps = dispatch => ({
-  selectOrg: orgID => dispatch(selectOrg(orgID)),
+const mapDispatchToProps = (dispatch) => ({
+  selectOrg: (orgID) => dispatch(selectOrg(orgID)),
   loadTimeline: () => dispatch(loadTimeline())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SelectMenu);

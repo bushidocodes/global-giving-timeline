@@ -25,7 +25,7 @@ export function selectOrg(orgID) {
 }
 
 export function selectOrgAndPoll(orgID) {
-  return function(dispatch, getState, api) {
+  return function (dispatch, getState, api) {
     const { selectedOrg } = getState().settings;
     if (window.pollingTimer) {
       window.clearInterval(window.pollingTimer);
@@ -46,7 +46,7 @@ export const loadTimeline = () => (dispatch, getState) => {
     return axios
       .get(`${base}/getorgbyposttest?orgId=${selectedOrg}`)
       .then(({ data }) => dispatch(setTimeline(data)))
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   } else {
     return null;
   }

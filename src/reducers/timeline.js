@@ -77,8 +77,7 @@ const mockData = [
     },
     content: {
       type: "image",
-      data:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Welcometofairfield.jpg/1200px-Welcometofairfield.jpg"
+      data: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Welcometofairfield.jpg/1200px-Welcometofairfield.jpg"
     }
   },
   {
@@ -97,8 +96,7 @@ const mockData = [
     },
     content: {
       type: "audio",
-      data:
-        "http://www.wavsource.com/snds_2017-09-17_1751672946049674/animals/dog_puppy.wav"
+      data: "http://www.wavsource.com/snds_2017-09-17_1751672946049674/animals/dog_puppy.wav"
     }
   },
   {
