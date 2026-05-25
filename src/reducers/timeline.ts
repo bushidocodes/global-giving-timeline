@@ -1,12 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import type { TimelinePost } from "../types";
 
-export const loadTimeline = createAsyncThunk(
+interface TimelineState {
+  items: TimelinePost[];
+  loading: boolean;
+  error: string | null;
+}
+
+// Minimal slice of RootState needed here; avoids a circular import with store.ts.
+interface ThunkState {
+  settings: { selectedOrg: string | null };
+  timeline: { loading: boolean };
+}
+
+const initialState: TimelineState = { items: [], loading: false, error: null };
+
+export const loadTimeline = createAsyncThunk<
+  TimelinePost[],
+  void,
+  { state: ThunkState }
+>(
   "timeline/load",
   async (_, { getState }) => {
     const { selectedOrg } = getState().settings;
     if (!selectedOrg) return [];
-    const { data } = await axios.get(
+    const { data } = await axios.get<TimelinePost[]>(
       `${import.meta.env.VITE_API_BASE_URL}/getorgbyposttest?orgId=${selectedOrg}`
     );
     return data;
@@ -17,7 +36,7 @@ export const loadTimeline = createAsyncThunk(
 
 const timelineSlice = createSlice({
   name: "timeline",
-  initialState: { items: [], loading: false, error: null },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

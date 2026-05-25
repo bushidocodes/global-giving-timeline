@@ -1,8 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
+import type { RootState } from "../store";
+import type { TimelinePost } from "../types";
 import TimelineListItem from "./TimelineListItem";
 
-function Timeline({ items, loading, error }) {
+interface TimelineProps {
+  items: TimelinePost[];
+  loading: boolean;
+  error: string | null;
+}
+
+function Timeline({ items, loading, error }: TimelineProps) {
   if (loading) return <div className="spinner" />;
   if (error) return <div className="error-state">Could not load timeline: {error}</div>;
 
@@ -21,7 +29,7 @@ function Timeline({ items, loading, error }) {
   });
 }
 
-function mapStateToProps({ timeline }) {
+function mapStateToProps({ timeline }: RootState) {
   return {
     items: [...timeline.items].reverse(),
     loading: timeline.loading,

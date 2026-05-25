@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import profile from "../assets/profile.svg";
 import ReactPlayer from "react-player";
+import type { TimelinePost } from "../types";
 
 const AvatarAndContent = styled.div`
   display: flex;
@@ -44,13 +45,17 @@ const AvatarImage = styled.img`
   border-radius: 50%;
 `;
 
+interface TimelineListItemProps extends TimelinePost {
+  showUser: boolean;
+}
+
 export default function TimelineListItem({
   Timestamp,
   ContentData,
   ContentType,
   UserId,
-  showUser
-}) {
+  showUser,
+}: TimelineListItemProps) {
   const date = new Date(Timestamp);
 
   return (

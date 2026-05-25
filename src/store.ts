@@ -4,7 +4,7 @@ import orgsReducer from "./reducers/orgs";
 import settingsReducer from "./reducers/settings";
 import timelineReducer from "./reducers/timeline";
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     orgs: orgsReducer,
     settings: settingsReducer,
@@ -13,3 +13,7 @@ export default configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(logger),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export default store;
