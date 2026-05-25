@@ -1,24 +1,15 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import thunk from "redux-thunk";
+import orgsReducer from "./reducers/orgs";
+import settingsReducer from "./reducers/settings";
+import timelineReducer from "./reducers/timeline";
 
-import orgs from "./reducers/orgs";
-import settings from "./reducers/settings";
-import timeline from "./reducers/timeline";
-
-// Prepare Redux Middlewares
-const middlewares = [];
-middlewares.push(logger);
-middlewares.push(thunk);
-
-// Create the Redux store using reducers and middlewares
-const reducers = {
-  orgs,
-  settings,
-  timeline
-};
-
-export default createStore(
-  combineReducers(reducers),
-  applyMiddleware(...middlewares)
-);
+export default configureStore({
+  reducer: {
+    orgs: orgsReducer,
+    settings: settingsReducer,
+    timeline: timelineReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(logger),
+});
