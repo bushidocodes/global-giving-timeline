@@ -20,3 +20,40 @@
 .App-intro {
   font-size: large;
 }
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #4caf50;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 40px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-state {
+  color: #b71c1c;
+  background: #ffebee;
+  border: 1px solid #ef9a9a;
+  border-radius: 4px;
+  padding: 16px 20px;
+  margin: 24px auto;
+  max-width: 640px;
+  text-align: left;
+}
+
+.error-state pre {
+  margin: 8px 0 0;
+  font-size: 0.85em;
+  white-space: pre-wrap;
+}
+
+.empty-state {
+  color: #888;
+  padding: 48px 20px;
+  font-size: 1.1em;
+}

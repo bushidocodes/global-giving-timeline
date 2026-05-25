@@ -53,7 +53,7 @@ function SelectMenu({ selectedOrgID, orgs, selectOrg, loadTimeline }) {
 
 const mapStateToProps = ({ settings: { selectedOrg: selectedOrgID }, orgs }) => ({
   selectedOrgID,
-  orgs,
+  orgs: orgs.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
