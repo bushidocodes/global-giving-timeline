@@ -47,11 +47,9 @@ function mapStateToProps({ timeline, settings: { selectedOrg } }) {
 
 const mapDispatchToProps = (dispatch, getState) => ({
   loadOrgs() {
-    console.log("Loading the orgs");
+    const base = process.env.REACT_APP_API_BASE_URL;
     axios
-      .get(
-        "https://9q0134xluk.execute-api.us-west-1.amazonaws.com/dev/getorganizations"
-      )
+      .get(`${base}/getorganizations`)
       .then(({ data }) => dispatch(setOrgs(data)));
   },
   loadTimeline: () => dispatch(loadTimeline())
