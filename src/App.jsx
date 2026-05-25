@@ -1,15 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 import Select from "./components/Select";
 import TimelineList from "./components/TimelineList";
-import { setOrgs, loadTimeline } from "./actions";
+import { loadOrgs, loadTimeline } from "./actions";
 import logo from "./gg_horizontal_color_600.png";
 import "./App.css";
 
-function App({ timeline, selectedOrg, loadOrgs, loadTimeline }) {
-  // Refs keep the interval callback pointing at the latest prop values
-  // without requiring the interval to be recreated on every render.
+function App({ selectedOrg, orgsLoading, orgsError, loadOrgs, loadTimeline }) {
   const selectedOrgRef = useRef(selectedOrg);
   selectedOrgRef.current = selectedOrg;
 
@@ -25,6 +22,13 @@ function App({ timeline, selectedOrg, loadOrgs, loadTimeline }) {
     return () => clearInterval(timer);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  function renderBody() {
+    if (orgsLoading) return <div className="spinner" />;
+    if (orgsError) return <div className="error-state">Could not load organizations: {orgsError}</div>;
+    if (!selectedOrg) return <div className="empty-state">Select an organization above to view its timeline.</div>;
+    return <TimelineList />;
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -32,23 +36,22 @@ function App({ timeline, selectedOrg, loadOrgs, loadTimeline }) {
         <h1 className="App-title">Timeline</h1>
       </header>
       <Select />
-      {timeline ? <TimelineList /> : <div>Select an Org</div>}
+      {renderBody()}
     </div>
   );
 }
 
-function mapStateToProps({ timeline, settings: { selectedOrg } }) {
-  return { timeline, selectedOrg };
+function mapStateToProps({ settings: { selectedOrg }, orgs }) {
+  return {
+    selectedOrg,
+    orgsLoading: orgs.loading,
+    orgsError: orgs.error,
+  };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loadOrgs() {
-    const base = import.meta.env.VITE_API_BASE_URL;
-    axios
-      .get(`${base}/getorganizations`)
-      .then(({ data }) => dispatch(setOrgs(data)));
-  },
-  loadTimeline: () => dispatch(loadTimeline())
+  loadOrgs: () => dispatch(loadOrgs()),
+  loadTimeline: () => dispatch(loadTimeline()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
