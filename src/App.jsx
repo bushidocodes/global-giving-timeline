@@ -43,7 +43,7 @@ function mapStateToProps({ timeline, settings: { selectedOrg } }) {
 
 const mapDispatchToProps = (dispatch) => ({
   loadOrgs() {
-    const base = process.env.REACT_APP_API_BASE_URL;
+    const base = import.meta.env.VITE_API_BASE_URL;
     axios
       .get(`${base}/getorganizations`)
       .then(({ data }) => dispatch(setOrgs(data)));
