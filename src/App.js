@@ -16,7 +16,6 @@ class App extends Component {
     this.props.loadOrgs();
     this.props.loadTimeline();
     window.pollingTimer = window.setInterval(() => {
-      console.log(this.props.selectedOrg || "Nothing yet selected");
       if (this.props.selectedOrg) this.props.loadTimeline();
     }, 5000);
   }
@@ -45,7 +44,7 @@ function mapStateToProps({ timeline, settings: { selectedOrg } }) {
   return { timeline, selectedOrg };
 }
 
-const mapDispatchToProps = (dispatch, getState) => ({
+const mapDispatchToProps = (dispatch) => ({
   loadOrgs() {
     const base = process.env.REACT_APP_API_BASE_URL;
     axios

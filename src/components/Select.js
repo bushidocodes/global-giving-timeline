@@ -5,7 +5,7 @@ import _ from "lodash";
 import { selectOrg, loadTimeline } from "../actions";
 import "react-select/dist/react-select.css";
 
-function LogoValue({ image, value, children }) {
+function LogoValue({ value }) {
   var logoStyle = {
     borderRadius: 3,
     display: "inline-block",
@@ -18,7 +18,7 @@ function LogoValue({ image, value, children }) {
   return (
     <div className="Select-value" title={value.title}>
       <span className="Select-value-label">
-        <img style={logoStyle} src={value.logoURL} />
+        <img style={logoStyle} src={value.logoURL} alt={value.label} />
         <span>{value.label}</span>
       </span>
     </div>
@@ -26,15 +26,17 @@ function LogoValue({ image, value, children }) {
 }
 
 class SelectMenu extends Component {
-  handleChange = (selectedOption) => {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(selectedOption) {
     this.props.selectOrg(selectedOption.value);
     setTimeout(this.props.loadTimeline, 50);
-  };
+  }
   render() {
-    const { selectedOrgID, selectedOrg, orgs } = this.props;
-    const selectedOrgName = selectedOrg ? selectedOrg.name : "";
-    const selectedOrgLogoURL = selectedOrg ? selectedOrg.logoURL : "";
-    const options = _.map(orgs, (value, key) => {
+    const { selectedOrgID, orgs } = this.props;
+    const options = _.map(orgs, (value) => {
       return {
         value: value.OrgId,
         label: value.Name,
