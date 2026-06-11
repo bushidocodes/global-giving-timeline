@@ -10,8 +10,10 @@ const store = configureStore({
     settings: settingsReducer,
     timeline: timelineReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => {
+    const base = getDefaultMiddleware();
+    return import.meta.env.DEV ? base.concat(logger) : base;
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
