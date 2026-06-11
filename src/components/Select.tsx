@@ -45,7 +45,7 @@ function SelectMenu({ selectedOrgID, orgs, selectOrg, loadTimeline }: SelectMenu
   function handleChange(selectedOption: OrgOption | null) {
     if (!selectedOption) return;
     selectOrg(selectedOption.value);
-    setTimeout(loadTimeline, 50);
+    loadTimeline();
   }
 
   const options: OrgOption[] = Object.values(orgs).map((org) => ({
