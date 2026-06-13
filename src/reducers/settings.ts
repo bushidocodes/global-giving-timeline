@@ -12,8 +12,8 @@ const settingsSlice = createSlice({
   reducers: {
     selectOrg: (state, action: PayloadAction<string>) => {
       state.selectedOrg = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { selectOrg } = settingsSlice.actions;

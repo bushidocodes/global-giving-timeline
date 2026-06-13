@@ -38,7 +38,7 @@ const orgsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message ?? "Failed to load organizations";
       });
-  },
+  }
 });
 
 export default orgsSlice.reducer;

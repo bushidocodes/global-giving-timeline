@@ -54,7 +54,7 @@ export default function TimelineListItem({
   ContentData,
   ContentType,
   UserId,
-  showUser,
+  showUser
 }: TimelineListItemProps) {
   const date = new Date(Timestamp);
 
