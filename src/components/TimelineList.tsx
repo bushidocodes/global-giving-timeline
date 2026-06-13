@@ -15,19 +15,13 @@ function Timeline({ items, loading, error }: TimelineProps) {
   if (error)
     return <div className="error-state">Could not load timeline: {error}</div>;
 
-  let lastUserName = "";
-  return items.map((item) => {
-    const currentUserName = item.UserId;
-    const showUser = currentUserName !== lastUserName;
-    lastUserName = currentUserName;
-    return (
-      <TimelineListItem
-        key={`${item.Timestamp}-${item.UserId}`}
-        showUser={showUser}
-        {...item}
-      />
-    );
-  });
+  return items.map((item, index) => (
+    <TimelineListItem
+      key={`${item.Timestamp}-${item.UserId}`}
+      showUser={index === 0 || item.UserId !== items[index - 1].UserId}
+      {...item}
+    />
+  ));
 }
 
 function mapStateToProps({ timeline }: RootState) {

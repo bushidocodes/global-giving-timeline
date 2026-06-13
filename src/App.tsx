@@ -23,10 +23,12 @@ function App({
   loadTimeline
 }: AppProps) {
   const selectedOrgRef = useRef(selectedOrg);
-  selectedOrgRef.current = selectedOrg;
-
   const loadTimelineRef = useRef(loadTimeline);
-  loadTimelineRef.current = loadTimeline;
+
+  useEffect(() => {
+    selectedOrgRef.current = selectedOrg;
+    loadTimelineRef.current = loadTimeline;
+  });
 
   useEffect(() => {
     loadOrgs();
