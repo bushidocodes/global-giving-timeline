@@ -1,8 +1,11 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import styled from "styled-components";
 import profile from "../assets/profile.svg";
-import ReactPlayer from "react-player";
 import type { TimelinePost } from "../types";
+
+// Lazy-loaded so react-player's hls.js/dash.js engines land in an async
+// chunk fetched only when a video post is actually rendered.
+const ReactPlayer = lazy(() => import("react-player"));
 
 const AvatarAndContent = styled.div`
   display: flex;
@@ -76,7 +79,9 @@ export default function TimelineListItem({
               <p>{String(ContentData).replace(/\+/gi, " ")}</p>
             )}
             {ContentType === "url" && (
-              <ReactPlayer src={ContentData} height="32px" controls={true} />
+              <Suspense fallback={null}>
+                <ReactPlayer src={ContentData} height="32px" controls={true} />
+              </Suspense>
             )}
           </BubbleBody>
         </ItemBubble>
