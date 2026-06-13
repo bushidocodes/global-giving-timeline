@@ -108,7 +108,3 @@ distribution referenced in the script.
 npm run build      # produces dist/
 ./scripts/deploy.sh
 ```
-
-> **Note:** the deploy script currently syncs from `./build/`, while
-> `npm run build` outputs to `dist/`. Adjust the script's paths (or set
-> `build.outDir` in `vite.config.js`) before deploying.
