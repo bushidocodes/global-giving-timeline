@@ -76,7 +76,7 @@ export default function TimelineListItem({
               <p>{String(ContentData).replace(/\+/gi, " ")}</p>
             )}
             {ContentType === "url" && (
-              <ReactPlayer url={ContentData} height="32px" controls={true} />
+              <ReactPlayer src={ContentData} height="32px" controls={true} />
             )}
           </BubbleBody>
         </ItemBubble>
