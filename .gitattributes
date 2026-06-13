@@ -1,0 +1,8 @@
+# Normalize line endings to LF in the repo and on checkout for every
+# platform. This keeps Prettier (endOfLine "lf" by default) and the
+# `format:check` script passing regardless of a contributor's core.autocrlf
+# setting. Binary assets are excluded so they are never modified.
+* text=auto eol=lf
+
+*.png binary
+*.ico binary
