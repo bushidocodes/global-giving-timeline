@@ -8,12 +8,12 @@ const store = configureStore({
   reducer: {
     orgs: orgsReducer,
     settings: settingsReducer,
-    timeline: timelineReducer,
+    timeline: timelineReducer
   },
   middleware: (getDefaultMiddleware) => {
     const base = getDefaultMiddleware();
     return import.meta.env.DEV ? base.concat(logger) : base;
-  },
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>;

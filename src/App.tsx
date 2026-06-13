@@ -15,7 +15,13 @@ interface AppProps {
   loadTimeline: () => void;
 }
 
-function App({ selectedOrg, orgsLoading, orgsError, loadOrgs, loadTimeline }: AppProps) {
+function App({
+  selectedOrg,
+  orgsLoading,
+  orgsError,
+  loadOrgs,
+  loadTimeline
+}: AppProps) {
   const selectedOrgRef = useRef(selectedOrg);
   selectedOrgRef.current = selectedOrg;
 
@@ -33,8 +39,18 @@ function App({ selectedOrg, orgsLoading, orgsError, loadOrgs, loadTimeline }: Ap
 
   function renderBody() {
     if (orgsLoading) return <div className="spinner" />;
-    if (orgsError) return <div className="error-state">Could not load organizations: {orgsError}</div>;
-    if (!selectedOrg) return <div className="empty-state">Select an organization above to view its timeline.</div>;
+    if (orgsError)
+      return (
+        <div className="error-state">
+          Could not load organizations: {orgsError}
+        </div>
+      );
+    if (!selectedOrg)
+      return (
+        <div className="empty-state">
+          Select an organization above to view its timeline.
+        </div>
+      );
     return <TimelineList />;
   }
 
@@ -54,14 +70,14 @@ function mapStateToProps({ settings: { selectedOrg }, orgs }: RootState) {
   return {
     selectedOrg,
     orgsLoading: orgs.loading,
-    orgsError: orgs.error,
+    orgsError: orgs.error
   };
 }
 
 function mapDispatchToProps(dispatch: AppDispatch) {
   return {
     loadOrgs: () => dispatch(loadOrgs()),
-    loadTimeline: () => dispatch(loadTimeline()),
+    loadTimeline: () => dispatch(loadTimeline())
   };
 }
 

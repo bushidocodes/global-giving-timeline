@@ -18,17 +18,13 @@ const logoStyle: React.CSSProperties = {
   position: "relative",
   top: -2,
   verticalAlign: "middle",
-  height: "1em",
+  height: "1em"
 };
 
 function LogoValue(props: SingleValueProps<OrgOption>) {
   return (
     <components.SingleValue {...props}>
-      <img
-        style={logoStyle}
-        src={props.data.logoURL}
-        alt={props.data.label}
-      />
+      <img style={logoStyle} src={props.data.logoURL} alt={props.data.label} />
       <span>{props.children}</span>
     </components.SingleValue>
   );
@@ -41,7 +37,12 @@ interface SelectMenuProps {
   loadTimeline: () => void;
 }
 
-function SelectMenu({ selectedOrgID, orgs, selectOrg, loadTimeline }: SelectMenuProps) {
+function SelectMenu({
+  selectedOrgID,
+  orgs,
+  selectOrg,
+  loadTimeline
+}: SelectMenuProps) {
   function handleChange(selectedOption: OrgOption | null) {
     if (!selectedOption) return;
     selectOrg(selectedOption.value);
@@ -51,7 +52,7 @@ function SelectMenu({ selectedOrgID, orgs, selectOrg, loadTimeline }: SelectMenu
   const options: OrgOption[] = Object.values(orgs).map((org) => ({
     value: org.OrgId,
     label: org.Name,
-    logoURL: org.LogoUrl,
+    logoURL: org.LogoUrl
   }));
 
   const selectedOption = options.find((o) => o.value === selectedOrgID) ?? null;
@@ -66,17 +67,20 @@ function SelectMenu({ selectedOrgID, orgs, selectOrg, loadTimeline }: SelectMenu
   );
 }
 
-function mapStateToProps({ settings: { selectedOrg: selectedOrgID }, orgs }: RootState) {
+function mapStateToProps({
+  settings: { selectedOrg: selectedOrgID },
+  orgs
+}: RootState) {
   return {
     selectedOrgID,
-    orgs: orgs.data,
+    orgs: orgs.data
   };
 }
 
 function mapDispatchToProps(dispatch: AppDispatch) {
   return {
     selectOrg: (orgID: string) => dispatch(selectOrg(orgID)),
-    loadTimeline: () => dispatch(loadTimeline()),
+    loadTimeline: () => dispatch(loadTimeline())
   };
 }
 

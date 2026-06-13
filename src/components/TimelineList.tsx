@@ -12,7 +12,8 @@ interface TimelineProps {
 
 function Timeline({ items, loading, error }: TimelineProps) {
   if (loading) return <div className="spinner" />;
-  if (error) return <div className="error-state">Could not load timeline: {error}</div>;
+  if (error)
+    return <div className="error-state">Could not load timeline: {error}</div>;
 
   let lastUserName = "";
   return items.map((item) => {
@@ -33,7 +34,7 @@ function mapStateToProps({ timeline }: RootState) {
   return {
     items: [...timeline.items].reverse(),
     loading: timeline.loading,
-    error: timeline.error,
+    error: timeline.error
   };
 }
 
