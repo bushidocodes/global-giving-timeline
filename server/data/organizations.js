@@ -27,4 +27,4 @@ const organizations = {
   }
 };
 
-module.exports = organizations;
+export default organizations;
