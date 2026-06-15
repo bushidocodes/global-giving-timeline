@@ -1,12 +1,11 @@
-import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
-import axios from "axios";
 import timelineReducer, { loadTimeline } from "./timeline";
 import settingsReducer, { selectOrg } from "./settings";
 import type { TimelinePost } from "../types";
 
-vi.mock("axios", () => ({ default: { get: vi.fn() } }));
-const mockGet = axios.get as unknown as Mock;
+const mockFetch = vi.fn();
+vi.stubGlobal("fetch", mockFetch);
 
 interface TestState {
   settings: { selectedOrg: string | null };
@@ -28,7 +27,7 @@ const POST: TimelinePost = {
 };
 
 beforeEach(() => {
-  mockGet.mockReset();
+  mockFetch.mockReset();
 });
 
 describe("timeline slice", () => {
@@ -45,20 +44,23 @@ describe("timeline slice", () => {
 
     await store.dispatch(loadTimeline());
 
-    expect(mockGet).not.toHaveBeenCalled();
+    expect(mockFetch).not.toHaveBeenCalled();
     expect(store.getState().timeline.items).toEqual([]);
     expect(store.getState().timeline.loading).toBe(false);
   });
 
   it("loads posts for the selected org and requests the correct URL", async () => {
-    mockGet.mockResolvedValueOnce({ data: [POST] });
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve([POST])
+    });
     const store = makeStore();
     store.dispatch(selectOrg("4497"));
 
     await store.dispatch(loadTimeline());
 
-    expect(mockGet).toHaveBeenCalledTimes(1);
-    expect(mockGet).toHaveBeenCalledWith(
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(mockFetch).toHaveBeenCalledWith(
       expect.stringContaining("/getorgbyposttest?orgId=4497")
     );
     const state = store.getState().timeline;
@@ -68,7 +70,7 @@ describe("timeline slice", () => {
   });
 
   it("records an error message when the request fails", async () => {
-    mockGet.mockRejectedValueOnce(new Error("network down"));
+    mockFetch.mockRejectedValueOnce(new Error("network down"));
     const store = makeStore();
     store.dispatch(selectOrg("4497"));
 
@@ -88,7 +90,7 @@ describe("timeline slice", () => {
 
     const result = await store.dispatch(loadTimeline());
 
-    expect(mockGet).not.toHaveBeenCalled();
+    expect(mockFetch).not.toHaveBeenCalled();
     expect(result.meta.requestStatus).toBe("rejected");
     // The guard short-circuits before `pending`, so loading is untouched.
     expect(store.getState().timeline.loading).toBe(true);

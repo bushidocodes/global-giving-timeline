@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { getJSON } from "../utils/api";
 import type { TimelinePost } from "../types";
 
 interface TimelineState {
@@ -25,10 +25,9 @@ export const loadTimeline = createAsyncThunk<
   async (_, { getState }) => {
     const { selectedOrg } = getState().settings;
     if (!selectedOrg) return [];
-    const { data } = await axios.get<TimelinePost[]>(
+    return getJSON<TimelinePost[]>(
       `${import.meta.env.VITE_API_BASE_URL}/getorgbyposttest?orgId=${selectedOrg}`
     );
-    return data;
   },
   // Skip if a fetch is already in flight.
   { condition: (_, { getState }) => !getState().timeline.loading }

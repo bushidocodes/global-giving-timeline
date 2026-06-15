@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { getJSON } from "../utils/api";
 import type { Org } from "../types";
 
 interface OrgsState {
@@ -13,10 +13,9 @@ const initialState: OrgsState = { data: {}, loading: false, error: null };
 export const loadOrgs = createAsyncThunk<Record<string, Org>>(
   "orgs/load",
   async () => {
-    const { data } = await axios.get<Record<string, Org>>(
+    return getJSON<Record<string, Org>>(
       `${import.meta.env.VITE_API_BASE_URL}/getorganizations`
     );
-    return data;
   }
 );
 
