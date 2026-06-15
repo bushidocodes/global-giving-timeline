@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import { fixupPluginRules } from '@eslint/compat';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import reactPlugin from 'eslint-plugin-react';
@@ -6,10 +7,17 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import prettierConfig from 'eslint-config-prettier';
 import globals from 'globals';
 
+// eslint-plugin-react v7 uses context.getFilename() which ESLint 10 removed.
+// fixupPluginRules() shims the deprecated methods back in until the plugin updates.
+const react = fixupPluginRules(reactPlugin);
+
 export default [
   js.configs.recommended,
   ...tsPlugin.configs['flat/recommended'],
-  reactPlugin.configs.flat.recommended,
+  {
+    ...reactPlugin.configs.flat.recommended,
+    plugins: { react },
+  },
   reactHooksPlugin.configs.flat.recommended,
   {
     files: ['src/**/*.{ts,tsx}'],
