@@ -1,11 +1,10 @@
-import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
-import axios from "axios";
 import orgsReducer, { loadOrgs } from "./orgs";
 import type { Org } from "../types";
 
-vi.mock("axios", () => ({ default: { get: vi.fn() } }));
-const mockGet = axios.get as unknown as Mock;
+const mockFetch = vi.fn();
+vi.stubGlobal("fetch", mockFetch);
 
 const makeStore = () => configureStore({ reducer: { orgs: orgsReducer } });
 
@@ -16,7 +15,7 @@ const ORG: Org = {
 };
 
 beforeEach(() => {
-  mockGet.mockReset();
+  mockFetch.mockReset();
 });
 
 describe("orgs slice", () => {
@@ -29,13 +28,16 @@ describe("orgs slice", () => {
   });
 
   it("loads organizations from the API on success", async () => {
-    mockGet.mockResolvedValueOnce({ data: { "4497": ORG } });
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ "4497": ORG })
+    });
     const store = makeStore();
 
     await store.dispatch(loadOrgs());
 
-    expect(mockGet).toHaveBeenCalledTimes(1);
-    expect(mockGet).toHaveBeenCalledWith(
+    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(mockFetch).toHaveBeenCalledWith(
       expect.stringContaining("/getorganizations")
     );
     const state = store.getState().orgs;
@@ -45,7 +47,7 @@ describe("orgs slice", () => {
   });
 
   it("records an error message when the request fails", async () => {
-    mockGet.mockRejectedValueOnce(new Error("network down"));
+    mockFetch.mockRejectedValueOnce(new Error("network down"));
     const store = makeStore();
 
     await store.dispatch(loadOrgs());
