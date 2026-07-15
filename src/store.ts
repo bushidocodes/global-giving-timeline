@@ -1,21 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
 import type { Middleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import orgsReducer from "./reducers/orgs";
 import settingsReducer from "./reducers/settings";
 import timelineReducer from "./reducers/timeline";
 
-/* eslint-disable no-console */
 const devLogger: Middleware = (api) => (next) => (action) => {
   if (typeof action === "object" && action !== null && "type" in action) {
+    // biome-ignore lint/suspicious/noConsole: intentional Redux dev logger
     console.group((action as { type: string }).type);
   }
+  // biome-ignore lint/suspicious/noConsole: intentional Redux dev logger
   console.log("dispatching", action);
   const result = next(action);
+  // biome-ignore lint/suspicious/noConsole: intentional Redux dev logger
   console.log("next state", api.getState());
+  // biome-ignore lint/suspicious/noConsole: intentional Redux dev logger
   console.groupEnd();
   return result;
 };
-/* eslint-enable no-console */
 
 const store = configureStore({
   reducer: {

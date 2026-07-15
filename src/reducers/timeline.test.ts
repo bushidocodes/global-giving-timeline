@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
-import timelineReducer, { loadTimeline } from "./timeline";
-import settingsReducer, { selectOrg } from "./settings";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { TimelinePost } from "../types";
+import settingsReducer, { selectOrg } from "./settings";
+import timelineReducer, { loadTimeline } from "./timeline";
 
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);

@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
-import orgsReducer, { loadOrgs } from "./orgs";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { Org } from "../types";
+import orgsReducer, { loadOrgs } from "./orgs";
 
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);

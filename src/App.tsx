@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import type { RootState, AppDispatch } from "./store";
+import { loadOrgs, loadTimeline } from "./actions";
 import Select from "./components/Select";
 import TimelineList from "./components/TimelineList";
-import { loadOrgs, loadTimeline } from "./actions";
 import logo from "./gg_horizontal_color_600.png";
+import type { AppDispatch, RootState } from "./store";
 import "./App.css";
 
 interface AppProps {
@@ -30,6 +30,8 @@ function App({
     loadTimelineRef.current = loadTimeline;
   });
 
+  // Mount-only: loadOrgs once; polling uses refs for latest selectedOrg/loadTimeline.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional mount-only effect
   useEffect(() => {
     loadOrgs();
     loadTimelineRef.current();
@@ -37,7 +39,7 @@ function App({
       if (selectedOrgRef.current) loadTimelineRef.current();
     }, 5000);
     return () => clearInterval(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   function renderBody() {
     if (orgsLoading) return <div className="spinner" />;

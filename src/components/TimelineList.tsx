@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "react-redux";
 import type { RootState } from "../store";
 import type { TimelinePost } from "../types";
