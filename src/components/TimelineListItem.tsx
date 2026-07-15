@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import styled from "styled-components";
 import profile from "../assets/profile.svg";
 import type { TimelinePost } from "../types";

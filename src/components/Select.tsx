@@ -1,8 +1,8 @@
 import React from "react";
-import Select, { components, SingleValueProps } from "react-select";
 import { connect } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
-import { selectOrg, loadTimeline } from "../actions";
+import Select, { components, SingleValueProps } from "react-select";
+import { loadTimeline, selectOrg } from "../actions";
+import type { AppDispatch, RootState } from "../store";
 import type { Org } from "../types";
 
 interface OrgOption {

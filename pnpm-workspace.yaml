@@ -1,3 +1,0 @@
-peerDependencyRules:
-  allowedVersions:
-    'eslint-plugin-react>eslint': '>=10'

@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getJSON } from "../utils/api";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { TimelinePost } from "../types";
+import { getJSON } from "../utils/api";
 
 interface TimelineState {
   items: TimelinePost[];

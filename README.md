@@ -73,9 +73,9 @@ Run from the repository root:
 | `npm run build` | Build the production bundle into `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run typecheck` | Type-check with `tsc --noEmit` |
-| `npm run lint` | Lint `src/**/*.{ts,tsx}` with ESLint |
-| `npm run lint:fix` | Lint and auto-fix |
-| `npm run format` | Format `src/**/*.{ts,tsx,css}` with Prettier |
+| `npm run lint` | Lint and check format with Biome |
+| `npm run lint:fix` | Lint, format, and auto-fix with Biome |
+| `npm run format` | Format with Biome |
 | `npm run format:check` | Check formatting without writing |
 
 ## Project structure
