@@ -8,12 +8,12 @@
     "@reduxjs/toolkit": "^2.3.0",
     "cors": "^2.8.5",
     "express": "^5.2.1",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "react-player": "^3.4.0",
     "react-redux": "^9.3.0",
     "react-select": "^5.10.0",
-    "styled-components": "^6.4.3"
+    "styled-components": "^6.4.4"
   },
   "scripts": {
     "start": "vite",
